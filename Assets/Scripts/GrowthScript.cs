@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Assets.Scripts;
 
 public class GrowthScript : MonoBehaviour {
 
@@ -9,12 +10,10 @@ public class GrowthScript : MonoBehaviour {
     private float PlantGrowth;//0 to 100, every 25 is a new stage (new sprite) the sprite at 100 shows the plant finished growing
     public bool PlantDone;
 
+    public SeedHandlerScript seedHandlerScript;
     private Image PlantSprite;
-    public Sprite PlantSprite1;
-    public Sprite PlantSprite2;
-    public Sprite PlantSprite3;
-    public Sprite PlantSprite4;
-    public Sprite PlantSprite5;
+    private Plant PlantedPlant = new Plant();
+    private Sprite[] PlantSprites;
 
     public GameObject WaterMeImg;
 
@@ -27,7 +26,9 @@ public class GrowthScript : MonoBehaviour {
 	
     public void setupPlant()
     {
-        PlantSprite.sprite = PlantSprite1;
+        PlantedPlant = seedHandlerScript.getPlant();
+        PlantSprites = PlantedPlant.Sprites;
+        PlantSprite.sprite = PlantSprites[0];
 
         PlantGrowth = 0;
         WaterPercentage = 100;
@@ -61,23 +62,23 @@ public class GrowthScript : MonoBehaviour {
     {
         if(PlantGrowth >= 0 && PlantGrowth < 25)
         {
-            PlantSprite.sprite = PlantSprite1;
+            PlantSprite.sprite = PlantSprites[0];
         }
         if (PlantGrowth >= 25 && PlantGrowth < 50)
         {
-            PlantSprite.sprite = PlantSprite2;
+            PlantSprite.sprite = PlantSprites[1];
         }
         if (PlantGrowth >= 50 && PlantGrowth < 75)
         {
-            PlantSprite.sprite = PlantSprite3;
+            PlantSprite.sprite = PlantSprites[2];
         }
         if (PlantGrowth >= 75 && PlantGrowth < 100)
         {
-            PlantSprite.sprite = PlantSprite4;
+            PlantSprite.sprite = PlantSprites[3];
         }
         if(PlantGrowth >= 100)
         {
-            PlantSprite.sprite = PlantSprite5;
+            PlantSprite.sprite = PlantSprites[4];
         }
     }
 

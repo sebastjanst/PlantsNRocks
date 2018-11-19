@@ -6,8 +6,6 @@ using Assets.Scripts;
 [System.Serializable]
 public class SeedHandlerScript : MonoBehaviour {
 
-    public GrowthScript growthScript;
-
     private Plant Rose;
     public Sprite[] RoseSprites = new Sprite[5];
 
@@ -17,8 +15,8 @@ public class SeedHandlerScript : MonoBehaviour {
     // Use this for initialization
     void Awake ()
     {
-        Rose = new Plant("Rose", 0, RoseSprites);
-        Clover = new Plant("Clover", 10, CloverSprites);
+        Rose = new Plant("Rose", 0, 1, RoseSprites);
+        Clover = new Plant("Clover", 10, 15, CloverSprites);
 	}
 
     public Plant getPlant()

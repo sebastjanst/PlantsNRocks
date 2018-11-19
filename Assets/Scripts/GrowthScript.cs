@@ -11,8 +11,9 @@ public class GrowthScript : MonoBehaviour {
     public bool PlantDone;
 
     public SeedHandlerScript seedHandlerScript;
+    public CoinScript coinScript;
     private Image PlantSprite;
-    private Plant PlantedPlant = new Plant();
+    private Plant PlantedPlant;
     private Sprite[] PlantSprites;
 
     public GameObject WaterMeImg;
@@ -86,6 +87,7 @@ public class GrowthScript : MonoBehaviour {
     {
         if (PlantDone)//collect coins
         {
+            coinScript.gainCoins(PlantedPlant.getReward());
             setupPlant();
         }
         else waterPlant();

@@ -9,21 +9,25 @@ namespace Assets.Scripts
     public class Plant
     {
         private string _Name;
-        private int _price;
+        private int _Price;
+        private int _Reward;
 
         public string Name { get; set; }
         public int Price { get; set; }
         public Sprite[] Sprites = new Sprite[5];
 
-        public Plant(string name, int price, Sprite[] sprites)
+        public Plant(string name, int price, int reward, Sprite[] sprites)
         {
             _Name = name;
-            _price = price;
+            _Price = price;
+            _Reward = reward;
 
             Sprites = sprites;
         }
-        public Plant()
+
+        public int getReward()
         {
+            return _Reward;
         }
     }
 }

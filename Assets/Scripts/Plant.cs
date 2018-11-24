@@ -8,26 +8,36 @@ namespace Assets.Scripts
 {
     public class Plant
     {
-        private string _Name;
-        private int _Price;
-        private int _Reward;
-
         public string Name { get; set; }
         public int Price { get; set; }
+        public string Description { get; set; }
+        public int Reward { get; set; }
         public Sprite[] Sprites = new Sprite[5];
 
-        public Plant(string name, int price, int reward, Sprite[] sprites)
+        public Plant(string name, int price, string description, int reward, Sprite[] sprites)
         {
-            _Name = name;
-            _Price = price;
-            _Reward = reward;
+            Name = name;
+            Price = price;
+            Description = description;
+            Reward = reward;
 
             Sprites = sprites;
         }
 
         public int getReward()
         {
-            return _Reward;
+            return Reward;
+        }
+
+        public int buySeed(int CoinsOwned)
+        {
+            int Cost = 0;
+            if(CoinsOwned >= Price)
+            {
+                Cost = Price;
+            }
+
+            return Cost;
         }
     }
 }

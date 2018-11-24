@@ -20,4 +20,15 @@ public class CoinScript : MonoBehaviour {
         Coins += CoinGain;
         CoinsTxt.text = Coins.ToString();
     }
+
+    public int getCurrentCoins()
+    {
+        return Coins;
+    }
+
+    public void spendCoins(int Cost)
+    {
+        Coins -= Cost;
+        CoinsTxt.text = Coins.ToString();
+    }
 }

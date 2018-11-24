@@ -9,9 +9,11 @@ public class GrowthScript : MonoBehaviour {
     private float WaterPercentage;//if 0 plant won't grow
     private float PlantGrowth;//0 to 100, every 25 is a new stage (new sprite) the sprite at 100 shows the plant finished growing
     public bool PlantDone;
+    public bool PlantGrowing;
 
     public SeedHandlerScript seedHandlerScript;
     public CoinScript coinScript;
+    public Sprite DirtSprite;
     private Image PlantSprite;
     private Plant PlantedPlant;
     private Sprite[] PlantSprites;
@@ -22,12 +24,13 @@ public class GrowthScript : MonoBehaviour {
     void Start ()
     {
         PlantSprite = this.gameObject.GetComponent<Image>();
-        setupPlant();
+        PlantSprite.sprite = DirtSprite;
+        WaterMeImg.SetActive(false);
     }
 	
     public void setupPlant()
     {
-        PlantedPlant = seedHandlerScript.getPlant();
+        PlantedPlant = seedHandlerScript.plantSeed();
         PlantSprites = PlantedPlant.Sprites;
         PlantSprite.sprite = PlantSprites[0];
 
@@ -35,6 +38,7 @@ public class GrowthScript : MonoBehaviour {
         WaterPercentage = 100;
         WaterMeImg.SetActive(false);
         PlantDone = false;
+        PlantGrowing = true;
 
         StartCoroutine(plantGrow());
     }
@@ -85,12 +89,17 @@ public class GrowthScript : MonoBehaviour {
 
     public void plantClicked()
     {
-        if (PlantDone)//collect coins
+        if (PlantGrowing)
         {
-            coinScript.gainCoins(PlantedPlant.getReward());
-            setupPlant();
+            if (PlantDone)//collect coins
+            {
+                coinScript.gainCoins(PlantedPlant.getReward());
+                PlantSprite.sprite = DirtSprite;
+                PlantGrowing = false;
+            }
+            else waterPlant();
         }
-        else waterPlant();
+        else if(seedHandlerScript.seedCheck()) setupPlant();
     }
 
     public void waterPlant()

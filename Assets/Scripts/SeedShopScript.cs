@@ -1,16 +1,64 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using TMPro;
+using Assets.Scripts;
 
 public class SeedShopScript : MonoBehaviour {
 
-	// Use this for initialization
-	void Start () {
-		
+    public TextMeshProUGUI ShopCoinTxt;
+    public TextMeshProUGUI DescriptionTxt;
+    public SeedHandlerScript seedHandlerScript;
+    public CoinScript coinScript;
+    public UIControler uiControler;
+    private Plant currentPlant;
+    public Image CurrentPlantImg;
+    public TextMeshProUGUI CurrentPlantPriceTxt;
+
+    void Start()
+    {
+        setCurrentPlant(0);
+    }
+
+    void Update()
+    {
+        ShopCoinTxt.text = coinScript.getCurrentCoins().ToString();
+    }
+
+    // Use this for initialization
+    void OnEnable ()
+    {
+        if (currentPlant == null)
+            DescriptionTxt.text = "";
+        else setDescription();
 	}
-	
-	// Update is called once per frame
-	void Update () {
-		
-	}
+
+    public void setCurrentPlant(int PickedSeed)
+    {
+        currentPlant = seedHandlerScript.getPlant(PickedSeed);
+        CurrentPlantImg.sprite = currentPlant.Sprites[4];
+        CurrentPlantPriceTxt.text = currentPlant.Price.ToString();
+        setDescription();
+    }
+
+    public void setDescription()
+    {
+        DescriptionTxt.text = currentPlant.Description;
+    } 
+
+    public void buySeed()
+    {
+        if (coinScript.getCurrentCoins() >= currentPlant.Price)
+        {
+            if (seedHandlerScript.seedCheck())//if holding a seed that hasn't been planted, refund it
+            {
+                coinScript.gainCoins(seedHandlerScript.whatSeedIsHeld().Price);
+            }
+
+            coinScript.spendCoins(currentPlant.buySeed(coinScript.getCurrentCoins()));
+            seedHandlerScript.holdSeed(currentPlant);
+            uiControler.closeAll();
+        }
+    }
 }

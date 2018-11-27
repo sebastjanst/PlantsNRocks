@@ -11,7 +11,7 @@ public class CoinScript : MonoBehaviour {
 	// Use this for initialization
 	void Start ()
     {
-        Coins = 0;
+        Coins = 10;
         CoinsTxt.text = Coins.ToString();
 	}
 	

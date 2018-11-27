@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Assets.Scripts;
 
 [System.Serializable]
@@ -14,6 +15,8 @@ public class SeedHandlerScript : MonoBehaviour {
 
     private Plant CurrentSeedHeld;
     private bool HoldingSeed = false;
+    public Image HeldSeedImg;
+    public GameObject HeldSeedDisplay;
 
     // Use this for initialization
     void Awake ()
@@ -44,6 +47,8 @@ public class SeedHandlerScript : MonoBehaviour {
     public void holdSeed(Plant BoughtSeed)
     {
         CurrentSeedHeld = BoughtSeed;
+        HeldSeedDisplay.SetActive(true);
+        HeldSeedImg.sprite = BoughtSeed.Sprites[4];
         HoldingSeed = true;
     }
 
@@ -51,11 +56,16 @@ public class SeedHandlerScript : MonoBehaviour {
     {
         return HoldingSeed;
     }
+    public Plant whatSeedIsHeld()
+    {
+        return CurrentSeedHeld;
+    }
 
     public Plant plantSeed()
     {
         Plant Sprout = CurrentSeedHeld;
         CurrentSeedHeld = null;
+        HeldSeedDisplay.SetActive(false);
         HoldingSeed = false;
 
         return Sprout;

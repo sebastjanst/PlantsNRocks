@@ -6,6 +6,8 @@ using Assets.Scripts;
 
 public class GrowthScript : MonoBehaviour {
 
+    public bool StartWithARose;
+
     private float WaterPercentage;//if 0 plant won't grow
     private float PlantGrowth;//0 to 100, every 25 is a new stage (new sprite) the sprite at 100 shows the plant finished growing
     public bool PlantDone;
@@ -24,7 +26,13 @@ public class GrowthScript : MonoBehaviour {
     void Start ()
     {
         PlantSprite = this.gameObject.GetComponent<Image>();
-        PlantSprite.sprite = DirtSprite;
+
+        if (StartWithARose)
+        {
+            seedHandlerScript.holdSeed(seedHandlerScript.getPlant(0));
+            setupPlant();
+        }else PlantSprite.sprite = DirtSprite;
+
         WaterMeImg.SetActive(false);
     }
 	

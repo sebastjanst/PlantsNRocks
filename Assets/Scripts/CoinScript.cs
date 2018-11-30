@@ -7,6 +7,7 @@ public class CoinScript : MonoBehaviour {
 
     private int Coins;
     public TextMeshProUGUI CoinsTxt;
+    public CoinCollectionScript coinCollectionScript;
 
 	// Use this for initialization
 	void Start ()
@@ -15,10 +16,16 @@ public class CoinScript : MonoBehaviour {
         CoinsTxt.text = Coins.ToString();
 	}
 	
-	public void gainCoins(int CoinGain)
+	public void gainCoins(int CoinGain)//for pure coin gain with no animation
     {
         Coins += CoinGain;
         CoinsTxt.text = Coins.ToString();
+    }
+
+    public void collectCoins(int CoinsCollected, Vector3 FromPosition)//for coin gain with an animation, vector3 should be the position of a plant tile
+    {
+        coinCollectionScript.playCoinAnimation(CoinsCollected, FromPosition);
+        gainCoins(CoinsCollected);
     }
 
     public int getCurrentCoins()

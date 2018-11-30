@@ -101,7 +101,7 @@ public class GrowthScript : MonoBehaviour {
         {
             if (PlantDone)//collect coins
             {
-                coinScript.gainCoins(PlantedPlant.getReward());
+                coinScript.collectCoins(PlantedPlant.getReward(), this.gameObject.GetComponent<Transform>().position);
                 PlantSprite.sprite = DirtSprite;
                 PlantGrowing = false;
             }

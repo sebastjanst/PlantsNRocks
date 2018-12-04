@@ -49,8 +49,9 @@ public class TreeScript : MonoBehaviour {
         {
             if (coinScript.getCurrentCoins() > 0)
             {
-                coinScript.spendCoins(1 + (coinScript.getCurrentCoins() / 10));
-                giveCoinsToTree(1 + (coinScript.getCurrentCoins() / 10));
+                int CoinsToDrain = 1 + (coinScript.getCurrentCoins() / 10);
+                coinScript.spendCoins(CoinsToDrain);
+                giveCoinsToTree(CoinsToDrain);
             }
             yield return new WaitForSeconds(0.2f);
         }
@@ -63,8 +64,9 @@ public class TreeScript : MonoBehaviour {
         while (TreeCoins > 0)
         {
             yield return new WaitForSeconds(2f);
-            giveCoinsToTree(-1);//negative number takes coins away
-            RockMass++;
+            int CoinsToEat = 1 + (TreeCoins / 10);
+            giveCoinsToTree(-CoinsToEat);//negative number takes coins away, coins get eaten faster for every 10 coins
+            RockMass += CoinsToEat;
             if (RockMass >= 10)
                 growRock();
         }
@@ -74,8 +76,9 @@ public class TreeScript : MonoBehaviour {
 
     private void growRock()
     {
-        RockMass-=10;
-        RocksGrown++;
+        int RocksToGrow = RockMass / 10;//for each 10 RockMass 1 rock will be grown
+        RockMass -= RocksToGrow * 10;//spends 10 rockmass for each rock grown
+        RocksGrown += RocksToGrow;
         RocksGrownTxt.text = RocksGrown.ToString();
     }
 

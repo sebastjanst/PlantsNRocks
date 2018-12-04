@@ -5,14 +5,13 @@ using TMPro;
 
 public class CoinScript : MonoBehaviour {
 
-    private int Coins;
+    private int Coins = 10;
     public TextMeshProUGUI CoinsTxt;
     public CoinCollectionScript coinCollectionScript;
 
 	// Use this for initialization
 	void Start ()
     {
-        Coins = 10;
         CoinsTxt.text = Coins.ToString();
 	}
 	

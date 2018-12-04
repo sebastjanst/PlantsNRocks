@@ -15,14 +15,15 @@ public class SeedHandlerScript : MonoBehaviour {
 
     private Plant CurrentSeedHeld;
     private bool HoldingSeed = false;
+    public CoinScript coinScript;
     public Image HeldSeedImg;
     public GameObject HeldSeedDisplay;
 
     // Use this for initialization
     void Awake ()
     {
-        Rose = new Plant("Rose", 0, "A standalone rose.", 1, RoseSprites);
-        Clover = new Plant("Clover", 10, "A lucky clover.", 15, CloverSprites);
+        Rose = new Plant("Rose", 0, "A standalone rose.", 1, 10, RoseSprites);
+        Clover = new Plant("Clover", 10, "A lucky clover.", 33, 2, CloverSprites);
 	}
 
     public Plant getPlant(int PlantNumber)
@@ -64,9 +65,16 @@ public class SeedHandlerScript : MonoBehaviour {
     public Plant plantSeed()
     {
         Plant Sprout = CurrentSeedHeld;
-        CurrentSeedHeld = null;
-        HeldSeedDisplay.SetActive(false);
-        HoldingSeed = false;
+        if (CurrentSeedHeld.Price > coinScript.getCurrentCoins())//if you can't afford a new seed, empty hand. Otherwise autobuys a new seed for easy planting
+        {
+            CurrentSeedHeld = null;
+            HeldSeedDisplay.SetActive(false);
+            HoldingSeed = false;
+        }
+        else
+        {
+            coinScript.spendCoins(CurrentSeedHeld.Price);
+        }
 
         return Sprout;
     }

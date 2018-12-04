@@ -49,8 +49,8 @@ public class TreeScript : MonoBehaviour {
         {
             if (coinScript.getCurrentCoins() > 0)
             {
-                coinScript.spendCoins(1);
-                giveCoinsToTree(1);
+                coinScript.spendCoins(1 + (coinScript.getCurrentCoins() / 10));
+                giveCoinsToTree(1 + (coinScript.getCurrentCoins() / 10));
             }
             yield return new WaitForSeconds(0.2f);
         }
@@ -74,7 +74,7 @@ public class TreeScript : MonoBehaviour {
 
     private void growRock()
     {
-        RockMass--;
+        RockMass-=10;
         RocksGrown++;
         RocksGrownTxt.text = RocksGrown.ToString();
     }

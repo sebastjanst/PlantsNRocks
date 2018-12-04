@@ -13,8 +13,6 @@ public class SeedShopScript : MonoBehaviour {
     public CoinScript coinScript;
     public UIControler uiControler;
     private Plant currentPlant;
-    public Image CurrentPlantImg;
-    public TextMeshProUGUI CurrentPlantPriceTxt;
 
     void Start()
     {
@@ -37,8 +35,6 @@ public class SeedShopScript : MonoBehaviour {
     public void setCurrentPlant(int PickedSeed)
     {
         currentPlant = seedHandlerScript.getPlant(PickedSeed);
-        CurrentPlantImg.sprite = currentPlant.Sprites[4];
-        CurrentPlantPriceTxt.text = currentPlant.Price.ToString();
         setDescription();
     }
 

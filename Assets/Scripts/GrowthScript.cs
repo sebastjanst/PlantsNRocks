@@ -21,6 +21,7 @@ public class GrowthScript : MonoBehaviour {
     private Sprite[] PlantSprites;
 
     public GameObject WaterMeImg;
+    public Image WaterBarImg;
 
     // Use this for initialization
     void Start ()
@@ -34,6 +35,7 @@ public class GrowthScript : MonoBehaviour {
         }else PlantSprite.sprite = DirtSprite;
 
         WaterMeImg.SetActive(false);
+        WaterBarImg.fillAmount = 0;
     }
 	
     public void setupPlant()
@@ -44,6 +46,7 @@ public class GrowthScript : MonoBehaviour {
 
         PlantGrowth = 0;
         WaterPercentage = 100;
+        WaterBarImg.fillAmount = WaterPercentage/100;
         WaterMeImg.SetActive(false);
         PlantDone = false;
         PlantGrowing = true;
@@ -58,8 +61,9 @@ public class GrowthScript : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             if (WaterPercentage > 0)
             {
-                PlantGrowth += 5;
-                WaterPercentage -= 10;
+                PlantGrowth += PlantedPlant.GrowthRate;
+                WaterPercentage -= (PlantedPlant.GrowthRate*2);
+                WaterBarImg.fillAmount = WaterPercentage / 100;
 
                 plantSpriteCheck();
             }else WaterMeImg.SetActive(true);
@@ -104,6 +108,7 @@ public class GrowthScript : MonoBehaviour {
                 coinScript.collectCoins(PlantedPlant.getReward(), this.gameObject.GetComponent<Transform>().position);
                 PlantSprite.sprite = DirtSprite;
                 PlantGrowing = false;
+                WaterBarImg.fillAmount = 0;
             }
             else waterPlant();
         }
@@ -113,6 +118,7 @@ public class GrowthScript : MonoBehaviour {
     public void waterPlant()
     {
         WaterPercentage = 100;
+        WaterBarImg.fillAmount = WaterPercentage / 100;
         WaterMeImg.SetActive(false);
     }
 }

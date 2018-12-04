@@ -12,14 +12,16 @@ namespace Assets.Scripts
         public int Price { get; set; }
         public string Description { get; set; }
         public int Reward { get; set; }
+        public int GrowthRate { get; set; }
         public Sprite[] Sprites = new Sprite[5];
 
-        public Plant(string name, int price, string description, int reward, Sprite[] sprites)
+        public Plant(string name, int price, string description, int reward, int growthRate, Sprite[] sprites)
         {
             Name = name;
             Price = price;
             Description = description;
             Reward = reward;
+            GrowthRate = growthRate;
 
             Sprites = sprites;
         }

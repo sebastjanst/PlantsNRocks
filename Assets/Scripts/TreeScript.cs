@@ -13,6 +13,7 @@ public class TreeScript : MonoBehaviour {
     private bool EatingCoins = false;
     private int RockMass = 0;
     public int RocksGrown = 0;
+    public RockHandlerScript rockHandlerScript;
 
 	// Use this for initialization
 	void Start ()
@@ -80,6 +81,8 @@ public class TreeScript : MonoBehaviour {
         RockMass -= RocksToGrow * 10;//spends 10 rockmass for each rock grown
         RocksGrown += RocksToGrow;
         RocksGrownTxt.text = RocksGrown.ToString();
+
+        rockHandlerScript.rewardRocks(RocksToGrow);
     }
 
     public void giveCoinsToTree(int GivenCoins)

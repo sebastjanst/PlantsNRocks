@@ -6,6 +6,7 @@ public class UIControler : MonoBehaviour {
 
     public GameObject ShopPanel;
     public GameObject TreePanel;
+    public GameObject RockPanel;
 
 	// Use this for initialization
 	void Start ()
@@ -25,6 +26,7 @@ public class UIControler : MonoBehaviour {
     {
         ShopPanel.SetActive(false);
         TreePanel.SetActive(false);
+        RockPanel.SetActive(false);
     }
 
     public void toggleShopPanel()
@@ -39,5 +41,12 @@ public class UIControler : MonoBehaviour {
         if (TreePanel.activeSelf)
             TreePanel.SetActive(false);
         else TreePanel.SetActive(true);
+    }
+
+    public void toggleRockPanel()
+    {
+        if (RockPanel.activeSelf)
+            RockPanel.SetActive(false);
+        else RockPanel.SetActive(true);
     }
 }

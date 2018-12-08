@@ -38,6 +38,7 @@ public class RockHandlerScript : MonoBehaviour {
                 Rocks[randomRock].Ammount++;
             }
         }
+        updateRockNrTxts();
     }
 
     public void updateRockNrTxts()

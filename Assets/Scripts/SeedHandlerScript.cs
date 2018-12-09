@@ -19,8 +19,7 @@ public class SeedHandlerScript : MonoBehaviour {
     public Image HeldSeedImg;
     public GameObject HeldSeedDisplay;
 
-    // Use this for initialization
-    void Awake ()
+    void Awake ()//Awake happens before Start
     {
         Rose = new Plant("Rose", 0, "A standalone rose.", 1, 10, RoseSprites);
         Clover = new Plant("Clover", 10, "A lucky clover.", 33, 2, CloverSprites);

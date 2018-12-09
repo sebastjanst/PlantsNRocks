@@ -9,7 +9,6 @@ public class TreeScript : MonoBehaviour {
     public CoinScript coinScript;
     private int TreeCoins;
     public TextMeshProUGUI TreeCoinTxt;
-    public TextMeshProUGUI RocksGrownTxt;
     private bool EatingCoins = false;
     private int RockMass = 0;
     public int RocksGrown = 0;
@@ -20,7 +19,6 @@ public class TreeScript : MonoBehaviour {
     {
         TreeCoins = 0;
         TreeCoinTxt.text = TreeCoins.ToString();
-        RocksGrownTxt.text = RocksGrown.ToString();
     }
 
     private void Update()
@@ -80,9 +78,8 @@ public class TreeScript : MonoBehaviour {
         int RocksToGrow = RockMass / 10;//for each 10 RockMass 1 rock will be grown
         RockMass -= RocksToGrow * 10;//spends 10 rockmass for each rock grown
         RocksGrown += RocksToGrow;
-        RocksGrownTxt.text = RocksGrown.ToString();
 
-        rockHandlerScript.rewardRocks(RocksToGrow);
+        rockHandlerScript.addUnopenedGeodes(RocksToGrow);
     }
 
     public void giveCoinsToTree(int GivenCoins)

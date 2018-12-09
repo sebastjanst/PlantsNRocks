@@ -19,12 +19,6 @@ public class FloatScript : MonoBehaviour {
         MaxY += StartingPos;
         StartCoroutine(floatAnimation());
 	}
-	
-	// Update is called once per frame
-	void Update ()
-    {
-		
-    }
 
     IEnumerator floatAnimation()
     {

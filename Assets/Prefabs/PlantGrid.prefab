@@ -38,6 +38,7 @@ GameObject:
   - component: {fileID: 224867785203089824}
   - component: {fileID: 222747855345092716}
   - component: {fileID: 114609124570358962}
+  - component: {fileID: 225106966627176238}
   m_Layer: 0
   m_Name: CoinTxt
   m_TagString: Untagged
@@ -338,6 +339,7 @@ GameObject:
   - component: {fileID: 224251249083696684}
   - component: {fileID: 222623378724654912}
   - component: {fileID: 114619368618803606}
+  - component: {fileID: 225377563846927118}
   m_Layer: 0
   m_Name: CoinIco
   m_TagString: Untagged
@@ -1261,6 +1263,24 @@ MonoBehaviour:
   - {fileID: 21300000, guid: f4309fe4be81fd24d9c1e9033e6760dc, type: 3}
   - {fileID: 21300000, guid: e5b86729bbddeb9448beec8298bf5535, type: 3}
   - {fileID: 21300000, guid: 943416490a5af4240bb858d261bdad11, type: 3}
+  SunflowerSprites:
+  - {fileID: 21300000, guid: 10cc13135163fb04e87c87e467236781, type: 3}
+  - {fileID: 21300000, guid: 147e7e463c98cf949bdadd7a83aebf60, type: 3}
+  - {fileID: 21300000, guid: db423a5a5f2432f459fc2e40db2422dd, type: 3}
+  - {fileID: 21300000, guid: ccb95c4fed58a8d4e8a62784d32201f4, type: 3}
+  - {fileID: 21300000, guid: a2af69c3aea79564297dca7e3861b055, type: 3}
+  SnowdropSprites:
+  - {fileID: 21300000, guid: 1df8891f671947e45b041f7dac2c900c, type: 3}
+  - {fileID: 21300000, guid: c94ec8c62d4eb6247a5f97179f2f5106, type: 3}
+  - {fileID: 21300000, guid: fe3531b1abd37b14299caaa114267178, type: 3}
+  - {fileID: 21300000, guid: b2921cbe7dfe99c468f2734ce4c147ec, type: 3}
+  - {fileID: 21300000, guid: bbddde818279d1244a758b44470861b9, type: 3}
+  MushroomSprites:
+  - {fileID: 21300000, guid: 33a40f9d91e69264b93b58b4a3e31475, type: 3}
+  - {fileID: 21300000, guid: dc1bdeaff0ab7134aaa4950e47c8c8f1, type: 3}
+  - {fileID: 21300000, guid: 72f965cf09369384090f679dd4be265f, type: 3}
+  - {fileID: 21300000, guid: dcc5189b7a14d4840aae6fbaacd3cc97, type: 3}
+  - {fileID: 21300000, guid: ab13555cbe35feb41a4648a2bc334428, type: 3}
   coinScript: {fileID: 114590003775938310}
   HeldSeedImg: {fileID: 0}
   HeldSeedDisplay: {fileID: 0}
@@ -2962,3 +2982,25 @@ RectTransform:
   m_AnchoredPosition: {x: -2, y: 2}
   m_SizeDelta: {x: 25, y: 25}
   m_Pivot: {x: 1, y: 0}
+--- !u!225 &225106966627176238
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1074215996003152}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0
+--- !u!225 &225377563846927118
+CanvasGroup:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1588880474798082}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 0
+  m_BlocksRaycasts: 0
+  m_IgnoreParentGroups: 0

@@ -14,6 +14,7 @@ public class GrowthScript : MonoBehaviour {
     public bool PlantGrowing;
 
     public SeedHandlerScript seedHandlerScript;
+    public RockHandlerScript rockHandlerScript;
     public CoinScript coinScript;
     public Sprite DirtSprite;
     private Image PlantSprite;
@@ -61,8 +62,13 @@ public class GrowthScript : MonoBehaviour {
             yield return new WaitForSeconds(0.5f);
             if (WaterPercentage > 0)
             {
-                PlantGrowth += PlantedPlant.GrowthRate;
-                WaterPercentage -= (PlantedPlant.GrowthRate*2);
+                int AddGrowth = (PlantedPlant.GrowthRate / 10) + (rockHandlerScript.getPlantGrowthBonus());
+                if(AddGrowth > 25)//limit max speed from growth bonus
+                {
+                    AddGrowth = 25;
+                }
+                PlantGrowth += AddGrowth;
+                WaterPercentage -= ((PlantedPlant.GrowthRate * 2) / 10) + (rockHandlerScript.getWaterDrainBonus());
                 WaterBarImg.fillAmount = WaterPercentage / 100;
 
                 plantSpriteCheck();
@@ -70,6 +76,7 @@ public class GrowthScript : MonoBehaviour {
 
             if (PlantGrowth >= 100)
             {
+                WaterBarImg.fillAmount = 0;//clear the water bar image
                 PlantDone = true;//ends coroutine loop
             }
         }
@@ -105,7 +112,7 @@ public class GrowthScript : MonoBehaviour {
         {
             if (PlantDone)//collect coins
             {
-                coinScript.collectCoins(PlantedPlant.getReward(), this.gameObject.GetComponent<Transform>().position);
+                coinScript.collectCoins((PlantedPlant.getReward() + rockHandlerScript.getCoinRewardBonus()), this.gameObject.GetComponent<Transform>().position);
                 PlantSprite.sprite = DirtSprite;
                 PlantGrowing = false;
                 WaterBarImg.fillAmount = 0;

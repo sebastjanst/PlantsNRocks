@@ -11,6 +11,7 @@ public class TreeScript : MonoBehaviour {
     public TextMeshProUGUI TreeCoinTxt;
     private bool EatingCoins = false;
     private int RockMass = 0;
+    private int NextGeode = 10;
     public int RocksGrown = 0;
     public RockHandlerScript rockHandlerScript;
 
@@ -66,7 +67,7 @@ public class TreeScript : MonoBehaviour {
             int CoinsToEat = 1 + (TreeCoins / 10);
             giveCoinsToTree(-CoinsToEat);//negative number takes coins away, coins get eaten faster for every 10 coins
             RockMass += CoinsToEat;
-            if (RockMass >= 10)
+            if (RockMass >= NextGeode)
                 growRock();
         }
 
@@ -75,9 +76,18 @@ public class TreeScript : MonoBehaviour {
 
     private void growRock()
     {
-        int RocksToGrow = RockMass / 10;//for each 10 RockMass 1 rock will be grown
-        RockMass -= RocksToGrow * 10;//spends 10 rockmass for each rock grown
-        RocksGrown += RocksToGrow;
+        int RocksToGrow = 0;
+        int GeodeBonus = rockHandlerScript.getGeodeBonus();//bonus to found geodes from quartz
+        if (GeodeBonus >= NextGeode / 2)//limit geode bonus so it doesn't ever reduce the next geode number
+            GeodeBonus = (NextGeode / 2) - 1;
+
+        while (RockMass >= NextGeode)
+        {
+            RocksToGrow++;
+            RockMass -= NextGeode;
+            NextGeode += (NextGeode/2) - GeodeBonus;
+            RocksGrown += 1;
+        }
 
         rockHandlerScript.addUnopenedGeodes(RocksToGrow);
     }

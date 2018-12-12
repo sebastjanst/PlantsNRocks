@@ -26,11 +26,11 @@ public class RockHandlerScript : MonoBehaviour {
     public TextMeshProUGUI TigersEyeTxt;
 
     public GameObject RocksFoundPanel;
-    public Image RubyFoundImg;
-    public Image AmethystFoundImg;
-    public Image QuartzFoundImg;
-    public Image AquamarineFoundImg;
-    public Image TigersEyeFoundImg;
+    public GameObject RubyFoundImg;
+    public GameObject AmethystFoundImg;
+    public GameObject QuartzFoundImg;
+    public GameObject AquamarineFoundImg;
+    public GameObject TigersEyeFoundImg;
 
     public TextMeshProUGUI RubyFoundTxt;
     public TextMeshProUGUI AmethystFoundTxt;
@@ -47,13 +47,39 @@ public class RockHandlerScript : MonoBehaviour {
     {
         closeRocksFoundPanel();
         Ruby = new Rock("Ruby", 0, RubySprite, "Plants grow faster but also lose water faster.");
-        Amethyst = new Rock("Amethyst", 0, AmethystSprite,  "");
-        Quartz = new Rock("Quartz", 0, QuartzSprite, "");
-        Aquamarine = new Rock("Aquamarine", 0, AquamarineSprite, "");
-        TigersEye = new Rock("TigersEye", 0, TigersEyeSprite, "");
+        Amethyst = new Rock("Amethyst", 0, AmethystSprite,  "Plants grow slightly faster.");
+        Quartz = new Rock("Quartz", 0, QuartzSprite, "Find more geodes.");
+        Aquamarine = new Rock("Aquamarine", 0, AquamarineSprite, "Plants need less water.");
+        TigersEye = new Rock("TigersEye", 0, TigersEyeSprite, "More gold from plants.");
 
         Rocks = new Rock[]{ Ruby, Amethyst, Quartz, Aquamarine, TigersEye };
         rockTypesNr = Rocks.Length;
+    }
+
+    public int getPlantGrowthBonus()
+    {
+        int GrowthBonus = Ruby.Ammount + (Amethyst.Ammount / 10);
+        return GrowthBonus;
+    }
+
+    public int getWaterDrainBonus()
+    {
+        int WaterDrainBonus = Ruby.Ammount - (Aquamarine.Ammount/2);
+        if (WaterDrainBonus < 0)
+            WaterDrainBonus = 0;
+        return WaterDrainBonus;
+    }
+
+    public int getCoinRewardBonus()
+    {
+        int CoinBonus = TigersEye.Ammount;
+        return CoinBonus;
+    }
+
+    public int getGeodeBonus()
+    {
+        int GeodeBonus = Quartz.Ammount;
+        return GeodeBonus;
     }
 
     public void addUnopenedGeodes(int NewGeodes)
@@ -75,7 +101,7 @@ public class RockHandlerScript : MonoBehaviour {
         RocksFoundPanel.SetActive(true);
 
         bool RubyFound = false; bool AmethystFound = false; bool QuartzFound = false; bool AquamarineFound = false; bool TigersEyeFound = false;
-        int RubiesFound = 0; int AmethystsFound = 0; int QuartzsFound = 0; int AquamarinesFound = 0; int TigersEyesFound = 0;
+        int RubyFoundAmmount = 0; int AmethystFoundAmmount = 0; int QuartzFoundAmmount = 0; int AquamarineFoundAmmount = 0; int TigersEyeFoundAmmount = 0;
 
         for (; GeodesFound > 0; GeodesFound--)
         {
@@ -87,25 +113,32 @@ public class RockHandlerScript : MonoBehaviour {
 
                 switch (randomRock)
                 {
-                    case 0: RubyFound = true; RubiesFound++; break;
-                    case 1: AmethystFound = true; AmethystsFound++; break;
-                    case 2: QuartzFound = true; QuartzsFound++; break;
-                    case 3: AquamarineFound = true; AquamarinesFound++; break;
-                    case 4: TigersEyeFound = true; TigersEyesFound++; break;
+                    case 0: RubyFound = true; RubyFoundAmmount++; break;
+                    case 1: AmethystFound = true; AmethystFoundAmmount++; break;
+                    case 2: QuartzFound = true; QuartzFoundAmmount++; break;
+                    case 3: AquamarineFound = true; AquamarineFoundAmmount++; break;
+                    case 4: TigersEyeFound = true; TigersEyeFoundAmmount++; break;
                     default: break;
                 }
             }
         }
 
-        RubyFoundImg.enabled = RubyFound; RubyFoundTxt.enabled = RubyFound; RubyFoundTxt.text = RubiesFound.ToString();
-        AmethystFoundImg.enabled = AmethystFound; AmethystFoundTxt.enabled = AmethystFound; AmethystFoundTxt.text = AmethystsFound.ToString();
-        QuartzFoundImg.enabled = QuartzFound; QuartzFoundTxt.enabled = QuartzFound; QuartzFoundTxt.text = QuartzsFound.ToString();
-        AquamarineFoundImg.enabled = AquamarineFound; AquamarineFoundTxt.enabled = AquamarineFound; AquamarineFoundTxt.text = AquamarinesFound.ToString();
-        TigersEyeFoundImg.enabled = TigersEyeFound; TigersEyeFoundTxt.enabled = TigersEyeFound; TigersEyeFoundTxt.text = TigersEyesFound.ToString();
+        updateFoundRockImgAndTxts(RubyFoundImg, RubyFoundTxt, RubyFound, RubyFoundAmmount);
+        updateFoundRockImgAndTxts(AmethystFoundImg, AmethystFoundTxt, AmethystFound, AmethystFoundAmmount);
+        updateFoundRockImgAndTxts(QuartzFoundImg, QuartzFoundTxt, QuartzFound, QuartzFoundAmmount);
+        updateFoundRockImgAndTxts(AquamarineFoundImg, AquamarineFoundTxt, AquamarineFound, AquamarineFoundAmmount);
+        updateFoundRockImgAndTxts(TigersEyeFoundImg, TigersEyeFoundTxt, TigersEyeFound, TigersEyeFoundAmmount);
 
         addUnopenedGeodes(0);
 
         updateRockNrTxts();
+    }
+
+    public void updateFoundRockImgAndTxts(GameObject FoundImg, TextMeshProUGUI FoundTxt, bool FoundStatus, int FoundAmmount)
+    {
+        FoundImg.SetActive(FoundStatus);
+        FoundTxt.enabled = FoundStatus;
+        FoundTxt.text = FoundAmmount.ToString();
     }
 
     public void updateRockNrTxts()

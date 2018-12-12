@@ -13,6 +13,15 @@ public class SeedHandlerScript : MonoBehaviour {
     private Plant Clover;
     public Sprite[] CloverSprites = new Sprite[5];
 
+    private Plant Sunflower;
+    public Sprite[] SunflowerSprites = new Sprite[5];
+
+    private Plant Snowdrop;
+    public Sprite[] SnowdropSprites = new Sprite[5];
+
+    private Plant Mushroom;
+    public Sprite[] MushroomSprites = new Sprite[5];
+
     private Plant CurrentSeedHeld;
     private bool HoldingSeed = false;
     public CoinScript coinScript;
@@ -21,9 +30,12 @@ public class SeedHandlerScript : MonoBehaviour {
 
     void Awake ()//Awake happens before Start
     {
-        Rose = new Plant("Rose", 0, "A standalone rose.", 1, 10, RoseSprites);
-        Clover = new Plant("Clover", 10, "A lucky clover.", 33, 2, CloverSprites);
-	}
+        Rose = new Plant("Rose", 0, "A standalone rose.", 1, 100, RoseSprites);
+        Clover = new Plant("Clover", 10, "A lucky clover.", 33, 50, CloverSprites);
+        Sunflower = new Plant("Sunflower", 100, "A sunflower.", 155, 25, SunflowerSprites);
+        Snowdrop = new Plant("Snowdrop", 1000, "A spring flower.", 2000, 15, SnowdropSprites);
+        Mushroom = new Plant("Mushroom", 10000, "A mushroom.", 15000, 10, MushroomSprites);
+    }
 
     public Plant getPlant(int PlantNumber)
     {
@@ -32,13 +44,9 @@ public class SeedHandlerScript : MonoBehaviour {
         {
             case 0: PlantToReturn = Rose; break;
             case 1: PlantToReturn = Clover; break;
-            case 99://random
-                int r = 1;
-                r = Random.Range(0, 2);
-                if (r < 1)
-                    PlantToReturn = Rose;
-                else PlantToReturn = Clover;
-                break;
+            case 2: PlantToReturn = Sunflower; break;
+            case 3: PlantToReturn = Snowdrop; break;
+            case 4: PlantToReturn = Mushroom; break;
             default: PlantToReturn = Rose; break;
         }
         return PlantToReturn;

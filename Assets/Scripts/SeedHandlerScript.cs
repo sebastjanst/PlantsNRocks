@@ -22,6 +22,9 @@ public class SeedHandlerScript : MonoBehaviour {
     private Plant Mushroom;
     public Sprite[] MushroomSprites = new Sprite[5];
 
+    private Plant Bonsai;
+    public Sprite[] BonsaiSprites = new Sprite[5];
+
     private Plant CurrentSeedHeld;
     private bool HoldingSeed = false;
     public CoinScript coinScript;
@@ -35,6 +38,7 @@ public class SeedHandlerScript : MonoBehaviour {
         Sunflower = new Plant("Sunflower", 100, "A sunflower.", 155, 25, SunflowerSprites);
         Snowdrop = new Plant("Snowdrop", 1000, "A spring flower.", 2000, 15, SnowdropSprites);
         Mushroom = new Plant("Mushroom", 10000, "A mushroom.", 15000, 10, MushroomSprites);
+        Bonsai = new Plant("Bonsai", 100000, "A tiny tree.", 1234567, 5, BonsaiSprites);
     }
 
     public Plant getPlant(int PlantNumber)
@@ -47,6 +51,7 @@ public class SeedHandlerScript : MonoBehaviour {
             case 2: PlantToReturn = Sunflower; break;
             case 3: PlantToReturn = Snowdrop; break;
             case 4: PlantToReturn = Mushroom; break;
+            case 5: PlantToReturn = Bonsai; break;
             default: PlantToReturn = Rose; break;
         }
         return PlantToReturn;

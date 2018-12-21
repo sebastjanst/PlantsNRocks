@@ -24,17 +24,17 @@ public class FloatScript : MonoBehaviour {
     {
         while (true)
         {
-            yield return new WaitForSeconds(0.1f);
+            yield return new WaitForSeconds(0.07f);
 
             if (movingDown)
             {
-                tr.position = Vector3.MoveTowards(tr.position, MinY, 0.01f);
+                tr.position = Vector3.MoveTowards(tr.position, MinY, 0.02f);
                 if (tr.position.y <= MinY.y)
                     movingDown = false;
             }
             else
             {
-                tr.position = Vector3.MoveTowards(tr.position, MaxY, 0.01f);
+                tr.position = Vector3.MoveTowards(tr.position, MaxY, 0.02f);
                 if (tr.position.y >= MaxY.y)
                     movingDown = true;
             }

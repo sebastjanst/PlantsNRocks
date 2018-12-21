@@ -59,16 +59,22 @@ public class GrowthScript : MonoBehaviour {
     {
         while (PlantDone == false)
         {
-            yield return new WaitForSeconds(0.5f);
+            yield return new WaitForSeconds(0.3f);
             if (WaterPercentage > 0)
             {
-                int AddGrowth = (PlantedPlant.GrowthRate / 10) + (rockHandlerScript.getPlantGrowthBonus());
+                float AddGrowth = (PlantedPlant.GrowthRate / 100) + (rockHandlerScript.getPlantGrowthBonus()/2);
                 if(AddGrowth > 25)//limit max speed from growth bonus
-                {
                     AddGrowth = 25;
-                }
+                if (AddGrowth <= 0)
+                    AddGrowth = 0.1f;
                 PlantGrowth += AddGrowth;
-                WaterPercentage -= ((PlantedPlant.GrowthRate * 2) / 10) + (rockHandlerScript.getWaterDrainBonus());
+
+                float RemoveWater = ((PlantedPlant.GrowthRate * 2) / 100) + (rockHandlerScript.getWaterDrainBonus()/2);
+                if (RemoveWater <= 0)
+                    RemoveWater = 1f;
+                if (RemoveWater >= 25)
+                    RemoveWater = 25;
+                WaterPercentage -= RemoveWater;
                 WaterBarImg.fillAmount = WaterPercentage / 100;
 
                 plantSpriteCheck();
@@ -112,7 +118,7 @@ public class GrowthScript : MonoBehaviour {
         {
             if (PlantDone)//collect coins
             {
-                coinScript.collectCoins((PlantedPlant.getReward() + rockHandlerScript.getCoinRewardBonus()), this.gameObject.GetComponent<Transform>().position);
+                coinScript.collectCoins((PlantedPlant.getReward() + ((PlantedPlant.getReward() * rockHandlerScript.getCoinRewardBonus())/5)), this.gameObject.GetComponent<Transform>().position);
                 PlantSprite.sprite = DirtSprite;
                 PlantGrowing = false;
                 WaterBarImg.fillAmount = 0;

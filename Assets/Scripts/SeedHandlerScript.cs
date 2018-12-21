@@ -33,12 +33,12 @@ public class SeedHandlerScript : MonoBehaviour {
 
     void Awake ()//Awake happens before Start
     {
-        Rose = new Plant("Rose", 0, "A standalone rose.", 1, 100, RoseSprites);
-        Clover = new Plant("Clover", 10, "A lucky clover.", 33, 50, CloverSprites);
+        Rose = new Plant("Rose", 0, "A standalone rose.", 1, 250, RoseSprites);
+        Clover = new Plant("Clover", 10, "A lucky clover.", 33, 100, CloverSprites);
         Sunflower = new Plant("Sunflower", 100, "A sunflower.", 155, 25, SunflowerSprites);
         Snowdrop = new Plant("Snowdrop", 1000, "A spring flower.", 2000, 15, SnowdropSprites);
-        Mushroom = new Plant("Mushroom", 10000, "A mushroom.", 15000, 10, MushroomSprites);
-        Bonsai = new Plant("Bonsai", 100000, "A tiny tree.", 1234567, 5, BonsaiSprites);
+        Mushroom = new Plant("Mushroom", 10000, "A mushroom.", 15000, 5, MushroomSprites);
+        Bonsai = new Plant("Bonsai", 100000, "A tiny tree.", 1234567, 2, BonsaiSprites);
     }
 
     public Plant getPlant(int PlantNumber)

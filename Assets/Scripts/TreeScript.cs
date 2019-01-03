@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
+using UnityEngine.UI;
 
 public class TreeScript : MonoBehaviour {
 
@@ -15,11 +16,18 @@ public class TreeScript : MonoBehaviour {
     public int RocksGrown = 0;
     public RockHandlerScript rockHandlerScript;
 
-	// Use this for initialization
-	void Start ()
+    private float TotalCoinsFed = 0;
+    private float TotalCoinFedGoal = 10000000;
+    public Image CoinBarImg;
+    public GameObject EndingPanel;
+
+    // Use this for initialization
+    void Start ()
     {
         TreeCoins = 0;
         TreeCoinTxt.text = TreeCoins.ToString();
+        CoinBarImg.fillAmount = 0;
+        EndingPanel.SetActive(false);
     }
 
     private void Update()
@@ -51,6 +59,7 @@ public class TreeScript : MonoBehaviour {
             {
                 int CoinsToDrain = 1 + (coinScript.getCurrentCoins() / 10);
                 coinScript.spendCoins(CoinsToDrain);
+                updateCoinBar(CoinsToDrain);//added coins add to coin goal and update coin bar
                 giveCoinsToTree(CoinsToDrain);
             }
             yield return new WaitForSeconds(0.2f);
@@ -65,7 +74,8 @@ public class TreeScript : MonoBehaviour {
         {
             yield return new WaitForSeconds(2f);
             int CoinsToEat = 1 + (TreeCoins / 10);
-            giveCoinsToTree(-CoinsToEat);//negative number takes coins away, coins get eaten faster for every 10 coins
+            giveCoinsToTree(-CoinsToEat);//negative number, since in this case it takes coins away, coins get eaten faster for every 10 coins
+
             RockMass += CoinsToEat;
             if (RockMass >= NextGeode)
                 growRock();
@@ -96,5 +106,13 @@ public class TreeScript : MonoBehaviour {
     {
         TreeCoins += GivenCoins;
         TreeCoinTxt.text = TreeCoins.ToString();
+    }
+
+    public void updateCoinBar(int NewCoins)
+    {
+        TotalCoinsFed += NewCoins;
+        CoinBarImg.fillAmount = TotalCoinsFed / TotalCoinFedGoal;
+        if (TotalCoinsFed >= TotalCoinFedGoal)
+            EndingPanel.SetActive(true);
     }
 }

@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class SpinScript : MonoBehaviour {
 
+    //this script just adds a little spin animation to objects. used on the intro screen
+
     public float Speed = 30;
 
     void Update()

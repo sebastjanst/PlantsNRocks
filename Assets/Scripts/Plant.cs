@@ -6,14 +6,15 @@ using UnityEngine;
 
 namespace Assets.Scripts
 {
+    //the plant class which also holds all the sprites of a plant including all of it's stages of growth
     public class Plant
     {
-        public string Name { get; set; }
-        public int Price { get; set; }
-        public string Description { get; set; }
-        public int Reward { get; set; }
-        public int GrowthRate { get; set; }
-        public Sprite[] Sprites = new Sprite[5];
+        public string Name { get; set; }//the name of the plant, currently not used in game
+        public int Price { get; set; }//the price of the seed in the shop
+        public string Description { get; set; }//not used
+        public int Reward { get; set; }//how many coins are rewarded on harvest
+        public int GrowthRate { get; set; }//how fast the plant will grow
+        public Sprite[] Sprites = new Sprite[5];//there are 5 stages of growth, so 5 sprites are used
 
         public Plant(string name, int price, string description, int reward, int growthRate, Sprite[] sprites)
         {
@@ -26,20 +27,14 @@ namespace Assets.Scripts
             Sprites = sprites;
         }
 
-        public int getReward()
+        public int getReward()//returns the coin reward of the plant
         {
             return Reward;
         }
 
-        public int buySeed(int CoinsOwned)
+        public int getPrice()//returns the cost of the plant
         {
-            int Cost = 0;
-            if(CoinsOwned >= Price)
-            {
-                Cost = Price;
-            }
-
-            return Cost;
+            return Price;
         }
     }
 }

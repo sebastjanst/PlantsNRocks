@@ -6,7 +6,9 @@ using Assets.Scripts;
 
 [System.Serializable]
 public class SeedHandlerScript : MonoBehaviour {
+    //this script creates all the plant class objects and handles holding and planting seeds
 
+    //set all the sprites here in the unity editor, element 0 should be a sprout and element 4 should be the fully grown plant
     private Plant Rose;
     public Sprite[] RoseSprites = new Sprite[5];
 
@@ -25,14 +27,15 @@ public class SeedHandlerScript : MonoBehaviour {
     private Plant Bonsai;
     public Sprite[] BonsaiSprites = new Sprite[5];
 
-    private Plant CurrentSeedHeld;
-    private bool HoldingSeed = false;
-    public CoinScript coinScript;
-    public Image HeldSeedImg;
-    public GameObject HeldSeedDisplay;
+    private Plant CurrentSeedHeld;//the currently selected plant that the player can plant by clicking on an empty tile
+    private bool HoldingSeed = false;//is any plant selected
+    public CoinScript coinScript;//need coinscript to check if the player can afford a new seed
+    public Image HeldSeedImg;//the fully grown plant sprite of the current seed held
+    public GameObject HeldSeedDisplay;//the game object of the heldSeedImg which can be hidden if there is no seed held
 
-    void Awake ()//Awake happens before Start
+    void Awake ()//Awake happens before Start, need this to make sure the class objects exist before any other script tries to access them
     {
+        //decide and tweak individual plant prices, growth rate and coin rewards here:
         Rose = new Plant("Rose", 0, "A standalone rose.", 1, 250, RoseSprites);
         Clover = new Plant("Clover", 10, "A lucky clover.", 33, 100, CloverSprites);
         Sunflower = new Plant("Sunflower", 100, "A sunflower.", 155, 25, SunflowerSprites);
@@ -41,7 +44,7 @@ public class SeedHandlerScript : MonoBehaviour {
         Bonsai = new Plant("Bonsai", 100000, "A tiny tree.", 1234567, 2, BonsaiSprites);
     }
 
-    public Plant getPlant(int PlantNumber)
+    public Plant getPlant(int PlantNumber)//returns plant based on it's number, starting with the rose at 0
     {
         Plant PlantToReturn;
         switch (PlantNumber)
@@ -57,7 +60,7 @@ public class SeedHandlerScript : MonoBehaviour {
         return PlantToReturn;
     }
 
-    public void holdSeed(Plant BoughtSeed)
+    public void holdSeed(Plant BoughtSeed)//sets the seed to hold
     {
         CurrentSeedHeld = BoughtSeed;
         HeldSeedDisplay.SetActive(true);
@@ -65,27 +68,28 @@ public class SeedHandlerScript : MonoBehaviour {
         HoldingSeed = true;
     }
 
-    public bool seedCheck()
+    public bool seedCheck()//returns true if there is currently already a seed being held
     {
         return HoldingSeed;
     }
-    public Plant whatSeedIsHeld()
+    public Plant whatSeedIsHeld()//returns the current plant seed held
     {
         return CurrentSeedHeld;
     }
 
-    public Plant plantSeed()
+    public Plant plantSeed()//returns the current seed held and buys a new one if possible, otherwise empties hand
     {
         Plant Sprout = CurrentSeedHeld;
         if (CurrentSeedHeld.Price > coinScript.getCurrentCoins())//if you can't afford a new seed, empty hand. Otherwise autobuys a new seed for easy planting
         {
+            //hides held seed graphics and empties hand
             CurrentSeedHeld = null;
             HeldSeedDisplay.SetActive(false);
             HoldingSeed = false;
         }
         else
         {
-            coinScript.spendCoins(CurrentSeedHeld.Price);
+            coinScript.spendCoins(CurrentSeedHeld.Price);//buys a new seed of the current plant
         }
 
         return Sprout;

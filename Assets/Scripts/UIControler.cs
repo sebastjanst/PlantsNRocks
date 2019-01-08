@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public class UIControler : MonoBehaviour {
+    //this script handles opening and closing all of the game's other panels
 
     public GameObject ShopPanel;
     public GameObject TreePanel;
